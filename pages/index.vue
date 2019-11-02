@@ -7,7 +7,12 @@
       <h3 class="subtitle">
         Vagiz Magdeev
       </h3>
-      <div class="links"></div>
+      <div class="links">
+        <nuxt-link to="/address">Поиск и подстановка адреса</nuxt-link>
+        <nuxt-link to="/finance"
+          >Добавление и редактирование финансовых инструментов</nuxt-link
+        >
+      </div>
     </div>
   </div>
 </template>

@@ -4,7 +4,8 @@
     filterable
     remote
     reserve-keyword
-    placeholder="Город"
+    placeholder="Улица"
+    :disabled="cityAoguid === '' || !cityAoguid"
     :remote-method="remoteMethod"
     :loading="loading"
     @change="onChanged"
@@ -22,9 +23,9 @@
 import axios from 'axios'
 import _ from 'lodash'
 export default {
-  name: 'citySelect',
+  name: 'streetSelect',
   props: {
-    region: String
+    cityAoguid: String
   },
   data() {
     return {
@@ -39,8 +40,7 @@ export default {
         this.loading = true
         axios
           .get(
-            `https://fias1.euler.solutions:443/api/v1/city?query=${query}` +
-              (this.region ? `&region_code=${this.region}` : '')
+            `https://fias1.euler.solutions:443/api/v1/street?aoguid=${this.cityAoguid}&query=${query}`
           )
           .then((response) => {
             this.loading = false

@@ -346,7 +346,11 @@ export const state = () => ({
     }
   ],
   currentRegion: {},
-  currentCity: {}
+  currentCity: {},
+  currentStreet: {},
+  currentHouse: {},
+  currentBuilding: '',
+  currentApartment: ''
 })
 
 export const mutations = {
@@ -355,6 +359,18 @@ export const mutations = {
   },
   setCurrentCity(state, city) {
     state.currentCity = city
+  },
+  setCurrentStreet(state, street) {
+    state.currentStreet = street
+  },
+  setCurrentHouse(state, house) {
+    state.currentHouse = house
+  },
+  setCurrentBuilding(state, building) {
+    state.currentBuilding = building
+  },
+  setCurrentApartment(state, apartment) {
+    state.currentApartment = apartment
   }
 }
 
@@ -364,5 +380,31 @@ export const actions = {
   },
   setCurrentCity(context, city) {
     context.commit('setCurrentCity', city)
+  },
+  setCurrentStreet(context, street) {
+    context.commit('setCurrentStreet', street)
+  },
+  setCurrentHouse(context, house) {
+    context.commit('setCurrentHouse', house)
+  },
+  setCurrentBuilding(context, building) {
+    context.commit('setCurrentBuilding', building)
+  },
+  setCurrentApartment(context, apartment) {
+    context.commit('setCurrentApartment', apartment)
   }
+}
+
+export const getters = {
+  fullAddressString: (state) => {
+    if (state.currentHouse.postalcode) {
+      console.log(
+        'state.currentHouse.postalcode:\t',
+        state.currentHouse.postalcode
+      )
+    }
+    return 'mock'
+  }
+  // state.currentStreet.postalcode state.currentCity.item_fullname || 'not here yet...'
+  // `${state.currentHouse.postalcode}, ${state.currentStreet.fullname}, д. ${state.currentHouse.value}`
 }
