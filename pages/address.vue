@@ -9,7 +9,7 @@
           <el-row type="flex" class="row-bg" justify="center">
             <el-select
               v-model="currentRegion.name"
-              placeholder="Select"
+              placeholder="Регион"
               @change="onRegionChanged"
             >
               <el-option

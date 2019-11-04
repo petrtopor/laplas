@@ -20,7 +20,7 @@
         <p>{{ card.isConfirmed ? 'Подтверждена' : 'Не подтверждена' }}</p>
       </div>
       <div class="number">
-        <p>{{ card.number }}</p>
+        <p>{{ card.number | cardNumberMaskFilter }}</p>
       </div>
     </div>
   </div>
@@ -38,6 +38,10 @@ export default {
     onDeleteButtonClick() {
       this.$emit('delete', this.card)
     }
+  },
+  filters: {
+    cardNumberMaskFilter: (value) =>
+      value.substr(0, 7) + 'xx-xxxx' + value.substr(14)
   }
 }
 </script>
