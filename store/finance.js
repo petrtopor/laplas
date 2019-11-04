@@ -4,6 +4,26 @@ export const state = () => ({
       name: 'Моя карта',
       isConfirmed: true,
       number: '4000-0000-0000-0002'
+    },
+    {
+      name: 'Ещё карта',
+      isConfirmed: true,
+      number: '4000-3333-0000-0002'
+    },
+    {
+      name: 'Новая карточка',
+      isConfirmed: true,
+      number: '4000-2345-0000-0002'
+    },
+    {
+      name: 'Новая карта',
+      isConfirmed: true,
+      number: '4000-2345-8888-0002'
+    },
+    {
+      name: 'Последняя mock-карта',
+      isConfirmed: true,
+      number: '4000-1111-2222-0002'
     }
   ]
 })
