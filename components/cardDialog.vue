@@ -131,7 +131,7 @@ export default {
   },
   computed: {
     disableSubmit() {
-      return this.addingCardName.length < 19 || this.addingCardNumber.length < 1
+      return this.addingCardNumber.length < 19 || this.addingCardName.length < 1
     }
   }
 }

@@ -38,10 +38,4 @@ describe('Finance', () => {
     )
     expect(wrapper.isVueInstance()).toBeTruthy()
   })
- /*
-  test('is a Vue instance', () => {
-    const wrapper = shallowMount(Finance)
-    expect(wrapper.isVueInstance()).toBeTruthy()
-  })
-  */
 })
