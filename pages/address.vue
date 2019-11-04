@@ -74,6 +74,7 @@
     </el-container>
   </div>
 </template>
+
 <script>
 import _ from 'lodash'
 import citySelect from '../components/citySelect'
@@ -94,7 +95,7 @@ export default {
     }
   },
   created() {
-    this.allRegions = this.$store.state.address.allRegions
+    this.allRegions = this.$store.getters['address/allRegions']
   },
   methods: {
     goBack() {
@@ -115,13 +116,19 @@ export default {
   },
   computed: {
     currentRegion() {
-      return _.clone(this.$store.state.address.currentRegion)
+      // return _.clone(this.$store.state.address.currentRegion)
+      // return this.$store.getters['address/currentRegion']
+      return _.clone(this.$store.getters['address/currentRegion'])
     },
     currentCity() {
-      return _.clone(this.$store.state.address.currentCity)
+      // return _.clone(this.$store.state.address.currentCity)
+      // return this.$store.getters['address/currentCity']
+      return _.clone(this.$store.getters['address/currentCity'])
     },
     currentStreet() {
-      return _.clone(this.$store.state.address.currentStreet)
+      // return _.clone(this.$store.state.address.currentStreet)
+      // return this.$store.getters['address/currentStreet']
+      return _.clone(this.$store.getters['address/currentStreet'])
     },
     fullAddressString() {
       return this.$store.getters['address/fullAddressString']
@@ -137,6 +144,7 @@ export default {
   }
 }
 </script>
+
 <style lang="scss" scoped>
 .el-select {
   flex-grow: 1;

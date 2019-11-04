@@ -18,6 +18,7 @@
     </el-option>
   </el-select>
 </template>
+
 <script>
 import axios from 'axios'
 import _ from 'lodash'
@@ -44,7 +45,6 @@ export default {
           )
           .then((response) => {
             this.loading = false
-            // console.log('RESPONSE:\n', response)
             this.options = response.data.data
               .filter((item) =>
                 _.startsWith(
@@ -64,7 +64,6 @@ export default {
       }
     }, 2000),
     onChanged(selectedCityName) {
-      // console.log('onChanged() element:\t', selectedCityName)
       const selectedCity = this.options.filter(
         (option) => option.value === selectedCityName
       )[0]

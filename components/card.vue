@@ -25,6 +25,7 @@
     </div>
   </div>
 </template>
+
 <script>
 export default {
   name: 'Card',
@@ -45,6 +46,7 @@ export default {
   }
 }
 </script>
+
 <style lang="scss" scoped>
 .container {
   // margin: 16px;

@@ -396,12 +396,12 @@ export const actions = {
 }
 
 export const getters = {
+  allRegions: (state) => state.allRegions,
+  currentRegion: (state) => state.currentRegion,
+  currentCity: (state) => state.currentCity,
+  currentStreet: (state) => state.currentStreet,
   fullAddressString: (state) => {
     if (state.currentHouse.postalcode) {
-      console.log(
-        'state.currentHouse.postalcode:\t',
-        state.currentHouse.postalcode
-      )
       let tmpAddressString = `${state.currentHouse.postalcode}, ${state.currentStreet.fullname}, д. ${state.currentHouse.value}`
       if (state.currentApartment !== '') {
         tmpAddressString += `, кв. ${state.currentApartment}`

@@ -37,15 +37,14 @@
     </el-dialog>
   </div>
 </template>
+
 <script>
-// v-bind:class="{ 'el-icon-bank-card': cardBrandName === '' }"
 import axios from 'axios'
 import { mask } from 'vue-the-mask'
 export default {
   name: 'cardDialog',
   directives: { mask },
   mounted() {
-    console.log('cardDialog::mounted:\tcard: ', this.card)
     this.dialogVisible = true
     this.addingCardName = this.card ? this.card.name : ''
     this.addingCardNumber = this.card ? this.card.number : ''
@@ -103,7 +102,6 @@ export default {
         this.cardFirstDigits = newAddingCardNumber
           .replace(/-/g, '')
           .substring(0, 6)
-        console.log('NEW this.cardFirstDigits:\t', this.cardFirstDigits)
         axios
           .get(
             `https://api.cardinfo.online?input=${newAddingCardNumber.replace(
@@ -112,7 +110,6 @@ export default {
             )}&apiKey=0aa2dbd380457c4482f093fce89b61de`
           )
           .then((response) => {
-            console.log('RESPONSE RESOLVED:\n', response)
             if (response.data.brandName) {
               this.cardBrandName = response.data.brandName
               this.cardBrandLogoOriginalSvg = response.data.brandLogoOriginalSvg
@@ -139,22 +136,11 @@ export default {
   }
 }
 </script>
+
 <style lang="scss" scoped>
 .container {
   position: absolute;
 }
-// div.el-dialog__body > div.el-input.el-input--suffix > span > span > i {
-//   .el-input__icon:after {
-//     content: '';
-//     height: 100%;
-//     width: 25px;
-//     display: inline-block;
-//     vertical-align: middle;
-//   }
-// }
-// .el-icon-bank-card:before {
-//   content: '';
-// }
 .notDefaultCardIcon {
   span {
     span {

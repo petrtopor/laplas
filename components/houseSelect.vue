@@ -7,11 +7,12 @@
     :disabled="streetAoguid === '' || !streetAoguid"
   ></el-autocomplete>
 </template>
+
 <script>
 import axios from 'axios'
 import _ from 'lodash'
 export default {
-  name: 'HouseSelect',
+  name: 'houseSelect',
   props: {
     streetAoguid: String
   },
@@ -31,11 +32,10 @@ export default {
             `https://fias1.euler.solutions:443/api/v1/houses?aoguid=${aoguid}`
           )
           .then((response) => {
-            console.log(`fetchHousessList RESPONSE:\n\t`, response.data.data)
             resolve(response.data.data)
           })
           .catch((error) => {
-            console.error('fetchHousessList REJECT:\n\t', error)
+            console.error(error)
             resolve([])
           })
       })
