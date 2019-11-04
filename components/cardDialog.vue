@@ -16,7 +16,7 @@
         v-model="addingCardNumber"
         placeholder="Номер карты"
         v-mask="'####-####-####-####'"
-        v-bind:class="{ ololo: cardBrandName !== '' }"
+        v-bind:class="{ notDefaultCardIcon: cardBrandName !== '' }"
       >
         <i
           slot="suffix"
@@ -26,7 +26,11 @@
       </el-input>
       <span slot="footer" class="dialog-footer">
         <el-button @click="handleClose">Отмена</el-button>
-        <el-button type="primary" @click="confirmClick">
+        <el-button
+          type="primary"
+          @click="confirmClick"
+          :disabled="disableSubmit"
+        >
           {{ card ? 'Сохранить' : 'Добавить' }}
         </el-button>
       </span>
@@ -127,6 +131,11 @@ export default {
           })
       }
     }
+  },
+  computed: {
+    disableSubmit() {
+      return this.addingCardName.length < 19 || this.addingCardNumber.length < 1
+    }
   }
 }
 </script>
@@ -146,7 +155,7 @@ export default {
 // .el-icon-bank-card:before {
 //   content: '';
 // }
-.ololo {
+.notDefaultCardIcon {
   span {
     span {
       i:before {
@@ -154,5 +163,8 @@ export default {
       }
     }
   }
+}
+.el-input {
+  margin-top: 16px;
 }
 </style>

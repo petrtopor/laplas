@@ -31,7 +31,7 @@ export default {
             `https://fias1.euler.solutions:443/api/v1/houses?aoguid=${aoguid}`
           )
           .then((response) => {
-            // console.log(`fetchHousessList RESPONSE:\n\t`, response.data.data)
+            console.log(`fetchHousessList RESPONSE:\n\t`, response.data.data)
             resolve(response.data.data)
           })
           .catch((error) => {
@@ -43,9 +43,16 @@ export default {
     },
     houseSearchAsync: _.debounce(function(queryString, cb) {
       this.fetchHousessList(this.streetAoguid).then((fetchedHousesList) => {
-        const values = fetchedHousesList.map((item) => {
-          return { value: item.housenum, postalcode: item.postalcode }
-        })
+        const values = fetchedHousesList
+          .filter((item) =>
+            _.startsWith(_.lowerCase(item.housenum), _.lowerCase(queryString))
+          )
+          .map((item) => {
+            return {
+              value: item.housenum + (item.buildnum ? ' ' + item.buildnum : ''),
+              postalcode: item.postalcode
+            }
+          })
         cb(values)
       })
     }, 800)

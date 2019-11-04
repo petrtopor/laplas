@@ -402,9 +402,12 @@ export const getters = {
         'state.currentHouse.postalcode:\t',
         state.currentHouse.postalcode
       )
+      let tmpAddressString = `${state.currentHouse.postalcode}, ${state.currentStreet.fullname}, д. ${state.currentHouse.value}`
+      if (state.currentApartment !== '') {
+        tmpAddressString += `, кв. ${state.currentApartment}`
+      }
+      return tmpAddressString
     }
-    return 'mock'
+    return ''
   }
-  // state.currentStreet.postalcode state.currentCity.item_fullname || 'not here yet...'
-  // `${state.currentHouse.postalcode}, ${state.currentStreet.fullname}, д. ${state.currentHouse.value}`
 }

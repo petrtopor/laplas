@@ -47,7 +47,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .container {
-  margin: 16px;
+  // margin: 16px;
+  width: fit-content;
   .card {
     display: flex;
     flex-direction: column;

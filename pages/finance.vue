@@ -1,20 +1,36 @@
 <template>
-  <div class="container">
-    <card-dialog
-      v-if="dialogVisible"
-      :card="cardToProcess"
-      @confirm="onDialogConfirm"
-      @cancel="onDialogCancel"
-    ></card-dialog>
-    <card
-      v-for="card in cards"
-      :key="card.number"
-      :card="card"
-      @edit="onCardEdit"
-      @delete="onCardDelete"
-    ></card>
-    <card-add @click="onAddCardClick"></card-add>
-  </div>
+  <el-container>
+    <el-header>
+      <el-page-header
+        @back="goBack"
+        content="Добавление и редактирование финансовых инструментов"
+      >
+      </el-page-header>
+    </el-header>
+    <el-main>
+      <card-dialog
+        v-if="dialogVisible"
+        :card="cardToProcess"
+        @confirm="onDialogConfirm"
+        @cancel="onDialogCancel"
+      ></card-dialog>
+      <el-row :gutter="20">
+        <el-col :span="14" :offset="5">
+          <div class="cards-placeholder">
+            <card
+              v-for="card in cards"
+              :key="card.number"
+              :card="card"
+              @edit="onCardEdit"
+              @delete="onCardDelete"
+            ></card>
+            <card-add @click="onAddCardClick"></card-add>
+          </div>
+        </el-col>
+      </el-row>
+    </el-main>
+    <el-footer></el-footer>
+  </el-container>
 </template>
 <script>
 // import _ from 'lodash'
@@ -37,6 +53,9 @@ export default {
     }
   },
   methods: {
+    goBack() {
+      this.$router.push('/')
+    },
     onDialogCancel() {
       console.log('onDialogCancel()')
       this.dialogVisible = false
@@ -102,8 +121,19 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.container {
+.cards-placeholder {
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  div {
+    margin-left: 16px;
+    &:nth-child(4n + 1) {
+      margin-left: 0px;
+    }
+    &:nth-child(n + 5) {
+      margin-top: 16px;
+    }
+  }
 }
 </style>

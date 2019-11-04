@@ -1,70 +1,77 @@
 <template>
   <div class="container">
-    <el-row type="flex" class="row-bg" justify="center">
-      <el-col :span="6">
-        <div class="grid-content bg-purple"></div>
-      </el-col>
-      <el-col :span="6">
-        <div class="grid-content bg-purple-light">
-          <el-row type="flex" class="row-bg" justify="center">
-            <el-select
-              v-model="currentRegion.name"
-              placeholder="Регион"
-              @change="onRegionChanged"
-            >
-              <el-option
-                v-for="region in allRegions"
-                :key="region.code"
-                :label="region.code + ' - ' + region.name"
-                :value="region"
+    <el-container>
+      <el-header>
+        <el-page-header @back="goBack" content="Поиск и подстановка адреса">
+        </el-page-header>
+      </el-header>
+      <el-main>
+        <el-row :gutter="20">
+          <el-col :span="6" :offset="9">
+            <div class="address-placeholder">
+              <el-row type="flex" class="row-bg" justify="center">
+                <el-select
+                  v-model="currentRegion.name"
+                  placeholder="Регион"
+                  @change="onRegionChanged"
+                >
+                  <el-option
+                    v-for="region in allRegions"
+                    :key="region.code"
+                    :label="region.code + ' - ' + region.name"
+                    :value="region"
+                  >
+                  </el-option>
+                </el-select>
+              </el-row>
+              <el-row type="flex" class="row-bg" justify="center">
+                <city-select
+                  :region="currentRegion.code"
+                  @change="onCityChanged"
+                ></city-select>
+              </el-row>
+              <el-row type="flex" class="row-bg" justify="center">
+                <street-select
+                  :cityAoguid="currentCity.aoguid"
+                  @change="onStreetChanged"
+                ></street-select>
+              </el-row>
+              <el-row :gutter="8" type="flex" class="row-bg" justify="center">
+                <el-col :span="8">
+                  <house-select
+                    :streetAoguid="currentStreet.aoguid"
+                    @select="onHouseChanged"
+                  ></house-select>
+                </el-col>
+                <el-col :span="8">
+                  <el-input
+                    placeholder="Корпус"
+                    v-model="buildingValue"
+                  ></el-input>
+                </el-col>
+                <el-col :span="8">
+                  <el-input
+                    placeholder="Квартира"
+                    v-model="apartmentValue"
+                  ></el-input>
+                </el-col>
+              </el-row>
+              <el-row
+                type="flex"
+                class="row-bg"
+                justify="center"
+                v-if="fullAddressString !== ''"
               >
-              </el-option>
-            </el-select>
-          </el-row>
-          <el-row type="flex" class="row-bg" justify="center">
-            <city-select
-              :region="currentRegion.code"
-              @change="onCityChanged"
-            ></city-select>
-          </el-row>
-          <el-row type="flex" class="row-bg" justify="center">
-            <!-- <street-select
-              :cityAoguid="cityAoguid"
-              @select="onStreetSelected"
-            ></street-select> -->
-            <street-select
-              :cityAoguid="currentCity.aoguid"
-              @change="onStreetChanged"
-            ></street-select>
-          </el-row>
-          <el-row :gutter="8" type="flex" class="row-bg" justify="center">
-            <el-col :span="8">
-              <house-select
-                :streetAoguid="currentStreet.aoguid"
-                @select="onHouseChanged"
-              ></house-select>
-            </el-col>
-            <el-col :span="8">
-              <el-input placeholder="Корпус" v-model="buildingValue"></el-input>
-            </el-col>
-            <el-col :span="8">
-              <el-input
-                placeholder="Квартира"
-                v-model="apartmentValue"
-              ></el-input>
-            </el-col>
-          </el-row>
-          <el-row type="flex" class="row-bg" justify="center">
-            <el-col :span="20">
-              <span>Полный адрес: {{ fullAddressString }}</span>
-            </el-col>
-          </el-row>
-        </div>
-      </el-col>
-      <el-col :span="6">
-        <div class="grid-content bg-purple"></div>
-      </el-col>
-    </el-row>
+                <el-col :span="20">
+                  <span>Полный адрес: {{ fullAddressString }}</span>
+                </el-col>
+              </el-row>
+            </div>
+          </el-col>
+        </el-row>
+      </el-main>
+      <el-footer></el-footer>
+    </el-container>
   </div>
 </template>
 <script>
@@ -90,6 +97,9 @@ export default {
     this.allRegions = this.$store.state.address.allRegions
   },
   methods: {
+    goBack() {
+      this.$router.push('/')
+    },
     onRegionChanged(element) {
       this.$store.dispatch('address/setCurrentRegion', element)
     },
@@ -114,7 +124,7 @@ export default {
       return _.clone(this.$store.state.address.currentStreet)
     },
     fullAddressString() {
-      return _.clone(this.$store.getters['address/fullAddressString'])
+      return this.$store.getters['address/fullAddressString']
     }
   },
   watch: {
@@ -122,7 +132,7 @@ export default {
       this.$store.dispatch('address/setCurrentBuilding', newBuildingValue)
     },
     apartmentValue(newApartmentValue, oldApartmentValue) {
-      this.$store.dispatch('address/setCurrentBuilding', newApartmentValue)
+      this.$store.dispatch('address/setCurrentApartment', newApartmentValue)
     }
   }
 }

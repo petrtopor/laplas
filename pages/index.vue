@@ -2,10 +2,10 @@
   <div class="container">
     <div>
       <h2 class="title">
-        Header
+        Test task 4 Euler
       </h2>
       <h3 class="subtitle">
-        Vagiz Magdeev
+        by Vagiz Magdeev
       </h3>
       <div class="links">
         <nuxt-link to="/address">Поиск и подстановка адреса</nuxt-link>
@@ -53,5 +53,8 @@ export default {
 
 .links {
   padding-top: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 </style>
