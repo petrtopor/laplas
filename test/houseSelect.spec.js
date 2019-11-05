@@ -1,10 +1,10 @@
 import { shallowMount } from '@vue/test-utils'
-import houseSelect from '@/components/houseSelect.vue'
+import HouseSelect from '@/components/houseSelect.vue'
 jest.mock('axios')
 
-describe('houseSelect', () => {
+describe('HouseSelect', () => {
   test('is a Vue instance', (done) => {
-    const wrapper = shallowMount(houseSelect, {
+    const wrapper = shallowMount(HouseSelect, {
       stubs: {
         'el-autocomplete': true
       }

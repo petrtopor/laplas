@@ -3,8 +3,8 @@
     v-model="houseValue"
     :fetch-suggestions="houseSearchAsync"
     placeholder="Дом"
-    @select="handleHouseSelect"
     :disabled="streetAoguid === '' || !streetAoguid"
+    @select="handleHouseSelect"
   ></el-autocomplete>
 </template>
 
@@ -12,9 +12,12 @@
 import axios from 'axios'
 import _ from 'lodash'
 export default {
-  name: 'houseSelect',
+  name: 'HouseSelect',
   props: {
-    streetAoguid: String
+    streetAoguid: {
+      type: String,
+      required: true
+    }
   },
   data() {
     return {
@@ -35,7 +38,10 @@ export default {
             resolve(response.data.data)
           })
           .catch((error) => {
-            console.error(error)
+            this.$notify.error({
+              title: 'Error fetching houses list',
+              message: error
+            })
             resolve([])
           })
       })

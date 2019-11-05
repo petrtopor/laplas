@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils'
-import index from '@/pages/index.vue'
+import Index from '@/pages/index.vue'
 
-describe('index', () => {
+describe('Index', () => {
   test('is a Vue instance', () => {
-    const wrapper = mount(index, {
+    const wrapper = mount(Index, {
       stubs: {
         'nuxt-link': true
       }

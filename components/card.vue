@@ -29,8 +29,15 @@
 <script>
 export default {
   name: 'Card',
+  filters: {
+    cardNumberMaskFilter: (value) =>
+      value.substr(0, 7) + 'xx-xxxx' + value.substr(14)
+  },
   props: {
-    card: Object
+    card: {
+      type: Object,
+      required: true
+    }
   },
   methods: {
     onEditButtonClick() {
@@ -39,10 +46,6 @@ export default {
     onDeleteButtonClick() {
       this.$emit('delete', this.card)
     }
-  },
-  filters: {
-    cardNumberMaskFilter: (value) =>
-      value.substr(0, 7) + 'xx-xxxx' + value.substr(14)
   }
 }
 </script>

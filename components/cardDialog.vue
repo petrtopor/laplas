@@ -9,27 +9,27 @@
       <span>Введите данные карты:</span>
       <el-input
         v-model="addingCardName"
-        placeholder="Название карты"
         v-mask="rusTokens"
+        placeholder="Название карты"
       ></el-input>
       <el-input
         v-model="addingCardNumber"
-        placeholder="Номер карты"
         v-mask="'####-####-####-####'"
-        v-bind:class="{ notDefaultCardIcon: cardBrandName !== '' }"
+        placeholder="Номер карты"
+        :class="{ notDefaultCardIcon: cardBrandName !== '' }"
       >
         <i
           slot="suffix"
           class="el-input__icon el-icon-bank-card"
-          v-bind:style="cardTypeDeterminedStyle"
+          :style="cardTypeDeterminedStyle"
         ></i>
       </el-input>
       <span slot="footer" class="dialog-footer">
         <el-button @click="handleClose">Отмена</el-button>
         <el-button
           type="primary"
-          @click="confirmClick"
           :disabled="disableSubmit"
+          @click="confirmClick"
         >
           {{ card ? 'Сохранить' : 'Добавить' }}
         </el-button>
@@ -42,16 +42,13 @@
 import axios from 'axios'
 import { mask } from 'vue-the-mask'
 export default {
-  name: 'cardDialog',
+  name: 'CardDialog',
   directives: { mask },
-  mounted() {
-    this.dialogVisible = true
-    this.addingCardName = this.card ? this.card.name : ''
-    this.addingCardNumber = this.card ? this.card.number : ''
-    this.editMode = !!this.card
-  },
   props: {
-    card: Object
+    card: {
+      type: Object,
+      required: true
+    }
   },
   data() {
     return {
@@ -74,22 +71,9 @@ export default {
       editMode: false
     }
   },
-  methods: {
-    confirmClick() {
-      this.$emit(
-        'confirm',
-        {
-          isConfirmed: false,
-          name: this.addingCardName,
-          number: this.addingCardNumber
-        },
-        this.editMode
-      )
-      this.dialogVisible = false
-    },
-    handleClose() {
-      this.$emit('cancel')
-      this.dialogVisible = false
+  computed: {
+    disableSubmit() {
+      return this.addingCardNumber.length < 19 || this.addingCardName.length < 1
     }
   },
   watch: {
@@ -129,9 +113,28 @@ export default {
       }
     }
   },
-  computed: {
-    disableSubmit() {
-      return this.addingCardNumber.length < 19 || this.addingCardName.length < 1
+  mounted() {
+    this.dialogVisible = true
+    this.addingCardName = this.card ? this.card.name : ''
+    this.addingCardNumber = this.card ? this.card.number : ''
+    this.editMode = !!this.card
+  },
+  methods: {
+    confirmClick() {
+      this.$emit(
+        'confirm',
+        {
+          isConfirmed: false,
+          name: this.addingCardName,
+          number: this.addingCardNumber
+        },
+        this.editMode
+      )
+      this.dialogVisible = false
+    },
+    handleClose() {
+      this.$emit('cancel')
+      this.dialogVisible = false
     }
   }
 }

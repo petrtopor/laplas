@@ -12,7 +12,7 @@
 </template>
 <script>
 export default {
-  name: 'cardAdd',
+  name: 'CardAdd',
   data() {
     return {
       labelText: 'Добавить карту'

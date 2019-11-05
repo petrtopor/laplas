@@ -23,9 +23,12 @@
 import axios from 'axios'
 import _ from 'lodash'
 export default {
-  name: 'citySelect',
+  name: 'CitySelect',
   props: {
-    region: String
+    region: {
+      type: String,
+      required: true
+    }
   },
   data() {
     return {
@@ -62,7 +65,7 @@ export default {
       } else {
         this.options = []
       }
-    }, 2000),
+    }, 800),
     onChanged(selectedCityName) {
       const selectedCity = this.options.filter(
         (option) => option.value === selectedCityName

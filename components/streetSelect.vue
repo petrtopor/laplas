@@ -24,9 +24,12 @@
 import axios from 'axios'
 import _ from 'lodash'
 export default {
-  name: 'streetSelect',
+  name: 'StreetSelect',
   props: {
-    cityAoguid: String
+    cityAoguid: {
+      type: String,
+      required: true
+    }
   },
   data() {
     return {
@@ -60,13 +63,16 @@ export default {
               })
           })
           .catch((error) => {
-            console.error(error)
+            this.$notify.error({
+              title: 'Error fetching streets list',
+              message: error
+            })
             this.options = []
           })
       } else {
         this.options = []
       }
-    }, 2000),
+    }, 800),
     onChanged(selectedCityName) {
       const selectedCity = this.options.filter(
         (option) => option.value === selectedCityName

@@ -2,8 +2,8 @@
   <el-container>
     <el-header>
       <el-page-header
-        @back="goBack"
         content="Добавление и редактирование финансовых инструментов"
+        @back="goBack"
       >
       </el-page-header>
     </el-header>
@@ -52,19 +52,22 @@ export default {
       cardToProcess: null
     }
   },
+  computed: {
+    cards() {
+      // return _.clone(this.$store.getters['finance/cards'])
+      return this.$store.getters['finance/cards']
+    }
+  },
   methods: {
     goBack() {
       this.$router.push('/')
     },
     onDialogCancel() {
-      console.log('onDialogCancel()')
       this.dialogVisible = false
     },
     onDialogConfirm(card, editMode) {
-      console.log('onDialogConfirm:\t', card)
       this.dialogVisible = false
       if (editMode) {
-        console.log('the card is supposed to be edited')
         this.$store.dispatch('finance/editCard', card)
       } else {
         const cardAlreadyExists =
@@ -85,15 +88,12 @@ export default {
       this.cardToProcess = card
     },
     onCardEdit(card) {
-      console.log('onCardEdit:\t', card)
       this.openCardDialog(card)
     },
     onCardDelete(card) {
-      console.log('onCardDelete:\t', card)
       this.$store.dispatch('finance/removeCard', card)
     },
     onAddCardClick() {
-      console.log('onAddCardClick')
       this.openCardDialog()
     },
     onAddCardConfirmClick() {
@@ -110,12 +110,6 @@ export default {
           done()
         })
         .catch((_) => {})
-    }
-  },
-  computed: {
-    cards() {
-      // return _.clone(this.$store.getters['finance/cards'])
-      return this.$store.getters['finance/cards']
     }
   }
 }

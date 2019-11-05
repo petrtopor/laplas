@@ -1,10 +1,10 @@
 import { shallowMount } from '@vue/test-utils'
-import cardDialog from '@/components/cardDialog.vue'
+import CardDialog from '@/components/cardDialog.vue'
 
-describe('cardDialog', () => {
+describe('CardDialog', () => {
   test('is a Vue instance', () => {
     const vueTheMaskDirectiveMock = jest.fn()
-    const wrapper = shallowMount(cardDialog, {
+    const wrapper = shallowMount(CardDialog, {
       directives: {
         'mask': vueTheMaskDirectiveMock
       },

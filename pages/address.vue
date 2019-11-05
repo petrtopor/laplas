@@ -2,7 +2,7 @@
   <div class="container">
     <el-container>
       <el-header>
-        <el-page-header @back="goBack" content="Поиск и подстановка адреса">
+        <el-page-header content="Поиск и подстановка адреса" @back="goBack">
         </el-page-header>
       </el-header>
       <el-main>
@@ -32,35 +32,35 @@
               </el-row>
               <el-row type="flex" class="row-bg" justify="center">
                 <street-select
-                  :cityAoguid="currentCity.aoguid"
+                  :city-aoguid="currentCity.aoguid"
                   @change="onStreetChanged"
                 ></street-select>
               </el-row>
               <el-row :gutter="8" type="flex" class="row-bg" justify="center">
                 <el-col :span="8">
                   <house-select
-                    :streetAoguid="currentStreet.aoguid"
+                    :street-aoguid="currentStreet.aoguid"
                     @select="onHouseChanged"
                   ></house-select>
                 </el-col>
                 <el-col :span="8">
                   <el-input
-                    placeholder="Корпус"
                     v-model="buildingValue"
+                    placeholder="Корпус"
                   ></el-input>
                 </el-col>
                 <el-col :span="8">
                   <el-input
-                    placeholder="Квартира"
                     v-model="apartmentValue"
+                    placeholder="Квартира"
                   ></el-input>
                 </el-col>
               </el-row>
               <el-row
+                v-if="fullAddressString !== ''"
                 type="flex"
                 class="row-bg"
                 justify="center"
-                v-if="fullAddressString !== ''"
               >
                 <el-col :span="20">
                   <span>Полный адрес: {{ fullAddressString }}</span>
@@ -81,37 +81,17 @@ import citySelect from '../components/citySelect'
 import streetSelect from '../components/streetSelect'
 import houseSelect from '../components/houseSelect'
 export default {
+  name: 'Address',
   components: {
     'city-select': citySelect,
     'street-select': streetSelect,
     'house-select': houseSelect
   },
-  name: 'Address',
   data() {
     return {
       allRegions: {},
       buildingValue: '',
       apartmentValue: ''
-    }
-  },
-  created() {
-    this.allRegions = this.$store.getters['address/allRegions']
-  },
-  methods: {
-    goBack() {
-      this.$router.push('/')
-    },
-    onRegionChanged(element) {
-      this.$store.dispatch('address/setCurrentRegion', element)
-    },
-    onCityChanged(selectedCity) {
-      this.$store.dispatch('address/setCurrentCity', selectedCity)
-    },
-    onStreetChanged(selectedStreet) {
-      this.$store.dispatch('address/setCurrentStreet', selectedStreet)
-    },
-    onHouseChanged(selectedHouse) {
-      this.$store.dispatch('address/setCurrentHouse', selectedHouse)
     }
   },
   computed: {
@@ -140,6 +120,26 @@ export default {
     },
     apartmentValue(newApartmentValue, oldApartmentValue) {
       this.$store.dispatch('address/setCurrentApartment', newApartmentValue)
+    }
+  },
+  created() {
+    this.allRegions = this.$store.getters['address/allRegions']
+  },
+  methods: {
+    goBack() {
+      this.$router.push('/')
+    },
+    onRegionChanged(element) {
+      this.$store.dispatch('address/setCurrentRegion', element)
+    },
+    onCityChanged(selectedCity) {
+      this.$store.dispatch('address/setCurrentCity', selectedCity)
+    },
+    onStreetChanged(selectedStreet) {
+      this.$store.dispatch('address/setCurrentStreet', selectedStreet)
+    },
+    onHouseChanged(selectedHouse) {
+      this.$store.dispatch('address/setCurrentHouse', selectedHouse)
     }
   }
 }
