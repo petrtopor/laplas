@@ -28,7 +28,7 @@ export default {
   props: {
     cityAoguid: {
       type: String,
-      required: true
+      default: ''
     }
   },
   data() {
@@ -48,7 +48,12 @@ export default {
           )
           .then((response) => {
             this.loading = false
-            this.options = response.data.data
+            const responseData = response.data.data
+            this.options = [
+              ...new Map(
+                responseData.reverse().map((item) => [item.item_fullname, item])
+              ).values()
+            ]
               .filter((item) =>
                 _.startsWith(
                   _.lowerCase(item.item_fullname),

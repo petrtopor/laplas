@@ -16,7 +16,7 @@ export default {
   props: {
     streetAoguid: {
       type: String,
-      required: true
+      default: ''
     }
   },
   data() {

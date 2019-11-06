@@ -27,7 +27,7 @@ export default {
   props: {
     region: {
       type: String,
-      required: true
+      default: ''
     }
   },
   data() {
