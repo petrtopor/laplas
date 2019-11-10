@@ -1,6 +1,8 @@
 # testTask
 
 > Test task for Euler by Vagiz Magdeev
+The task itself:
+https://drive.google.com/open?id=0By2XhbgN5nXCY3dGTXBDdHRHSnJHeWNTNXRQSW9JQnN1bXJZ
 
 ## Setup and launch order
 
@@ -32,5 +34,3 @@ $ npm run start
 # generate static project
 $ npm run generate
 ```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
