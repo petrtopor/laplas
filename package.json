@@ -15,7 +15,7 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
     "element-ui": "^2.4.11",
-    "nuxt": "^2.0.0",
+    "nuxt": "^3.4.3",
     "sass-loader": "^8.0.0",
     "vue-the-mask": "^0.11.1",
     "node-sass": "*"
